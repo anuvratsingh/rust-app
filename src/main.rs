@@ -20,7 +20,7 @@ fn main() {
 
     let status: String;
 
-    let state: Map<String, Value> = read_file(file_name.clone());
+    let state: Map<String, Value> = read_file(&file_name);
     match &state.get(*&title) {
         Some(result) => {
             status = result.to_string().replace('\"', "");
@@ -30,5 +30,5 @@ fn main() {
         }
     }
     let item = to_do_factory(&status, title).expect(&status);
-    process_input(item, command.to_string(), &state, file_name.clone());
+    process_input(item, command.to_string(), &state, &file_name);
 }

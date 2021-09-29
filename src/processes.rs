@@ -12,7 +12,7 @@ fn processes_pending(
   item: Pending,
   command: String,
   state: &Map<String, Value>,
-  file_name: String,
+  file_name: &String,
 ) {
   let mut state = state.clone();
   match command.as_str() {
@@ -29,7 +29,7 @@ fn processes_pending(
   }
 }
 
-fn processes_done(item: Done, command: String, state: &Map<String, Value>, file_name: String) {
+fn processes_done(item: Done, command: String, state: &Map<String, Value>, file_name: &String) {
   let mut state = state.clone();
   match command.as_str() {
     "get" => item.get(&item.super_struct.title, &state),
@@ -43,10 +43,10 @@ pub fn process_input(
   item: ItemTypes,
   command: String,
   state: &Map<String, Value>,
-  file_name: String,
+  file_name: &String,
 ) {
   match item {
-    ItemTypes::Pending(item) => processes_pending(item, command, state, file_name),
-    ItemTypes::Done(item) => processes_done(item, command, state, file_name),
+    ItemTypes::Pending(item) => processes_pending(item, command, state, &file_name),
+    ItemTypes::Done(item) => processes_done(item, command, state, &file_name),
   }
 }

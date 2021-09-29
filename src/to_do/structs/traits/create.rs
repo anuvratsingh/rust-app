@@ -9,7 +9,7 @@ pub trait Create {
     title: &String,
     status: &String,
     state: &mut Map<String, Value>,
-    file_name: String,
+    file_name: &String,
   ) {
     state.insert(title.to_string(), json!(status));
     write_to_file(file_name, state);
