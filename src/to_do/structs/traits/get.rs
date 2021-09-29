@@ -1,5 +1,14 @@
+use serde_json::{value::Value, Map};
+
 pub trait Get {
-  fn get(&self, tittle: &str) {
-    println!("{} is being fetched", tittle);
+  fn get(&self, title: &String, state: &Map<String, Value>) {
+    let item: Option<&Value> = state.get(title);
+    match item {
+      Some(result) => {
+        println!("\n\nItem: {}", title);
+        println!("Status: {}\n\n", result);
+      }
+      None => println!("Item: {} not found", title),
+    }
   }
 }
