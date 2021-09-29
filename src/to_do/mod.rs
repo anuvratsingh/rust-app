@@ -6,8 +6,15 @@ pub enum ItemTypes {
   Pending(Pending),
   Done(Done),
 }
-
-pub fn to_do_factory(item_type: &str, item_title: & str) -> Result<ItemTypes, &'static str> {
+/// This function builds and returns to do structs
+/// 
+/// # Arguments 
+/// * item_type (&String): the type of the struct to be built and returned
+/// * item_title (&String): the title for the item to be built
+/// 
+/// # Returns
+/// (Result<ItemTypes, &'templates str>):
+pub fn to_do_factory(item_type: &String, item_title: &String) -> Result<ItemTypes, &'static str> {
   if item_type == "pending" {
     let pending_item = Pending::new(item_title);
     Ok(ItemTypes::Pending(pending_item))

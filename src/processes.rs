@@ -8,6 +8,16 @@ use super::to_do::structs::traits::edit::Edit;
 use super::to_do::structs::traits::get::Get;
 use super::to_do::ItemTypes;
 
+/// This function processes the command on a pending to do item.
+///
+/// # item
+/// * item (Pending): the to do item to be processed
+/// * command (String): command to be acted on the to do item
+/// * state (&Map<String, Value>): the state of the to do items for the program
+/// * file_name (&String): name of the file on which action is being taken
+///
+/// # Returns
+/// None
 fn processes_pending(
   item: Pending,
   command: String,
@@ -29,6 +39,17 @@ fn processes_pending(
   }
 }
 
+
+/// This function processes the command on a done to do item.
+///
+/// # item
+/// * item (Pending): the to do item to be processed
+/// * command (String): command to be acted on the to do item
+/// * state (&Map<String, Value>): the state of the to do items for the program
+/// * file_name (&String): name of the file on which action is being taken
+///
+/// # Returns
+/// None
 fn processes_done(item: Done, command: String, state: &Map<String, Value>, file_name: &String) {
   let mut state = state.clone();
   match command.as_str() {
@@ -39,6 +60,15 @@ fn processes_done(item: Done, command: String, state: &Map<String, Value>, file_
   }
 }
 
+/// This function processes the user input to decide which function to operate.
+///
+/// # Arguments
+/// * item (ItemTypes): one of the to do item types to be processed
+/// * command (String): the command to be acted on the to do item
+/// * state (&Map<String, Value>): the state of the to do item for the program
+/// * file_name (&String): name of the file on which action is being taken
+/// # Returns
+/// None
 pub fn process_input(
   item: ItemTypes,
   command: String,
