@@ -1,56 +1,41 @@
-use rand::prelude::*;
-use std::env;
-///This function generates a float number using a number generator passed intp the function.
-///
-/// # Arguments
-/// * generator (&mut ThreadRng): the random number
-/// generator to generate the random number
-///
-/// # Returns
-/// (f64): random number between 0 -> 10
-fn generate_float(generator: &mut ThreadRng) -> f64 {
-    let placeholder: f64 = generator.gen();
-    placeholder * 10.0
-}
+// use actix_web::{web, App, HttpRequest, HttpServer, Responder};
 
-/// This tarit defines the struct to be a user.
-trait IsUser {
-    /// This function proclaims that the struct is a user.
-    ///
-    /// # Arguments
-    /// None
-    ///
-    /// # Returns
-    /// (bool) true if user, false if not
-    fn is_user() -> bool {
-        true
-    }
-}
+// async fn greet(req: HttpRequest) -> impl Responder {
+//     let name = req.match_info().get("name").unwrap_or("World");
 
-/// This struct deines a user
-///
-/// # Attributes
-/// * name (String): the name of the user
-/// * age (i8): the age of the user
-struct User {
-    name: String,
-    age: i8,
+//     format!("Hello  {}!", name)
+// }
+// #[actix_rt::main]
+// async fn main() -> std::io::Result<()> {
+//     HttpServer::new(|| {
+//         println!("Closure is being called");
+//         let app = App::new()
+//             .route("/", web::get().to(greet))
+//             .route("/{name}", web::get().to(greet));
+//             app
+//     })
+//     .bind("localhost:3020")?
+//     .run()
+//     .await
+// }
+
+use std::{thread, time};
+use std::thread::JoinHandle;
+
+fn do_something(num: i8) -> i8 {
+    println!("number {} is running", num);
+
+    let two_seconds = time::Duration::new(2, 0);
+    thread::sleep(two_seconds);
+    2
 }
 
 fn main() {
-    let mut rng: ThreadRng = rand::thread_rng();
-    let random_number = generate_float(&mut rng);
+    let now = time::Instant::now();
+    let one: i8 = do_something(1);
+    let two: i8 = do_something(2);
+    let three: i8 = do_something(3);
 
-    let args: Vec<String> = env::args().collect();
-    let path: &str = &args[0];
-
-    if path.contains("/debug/") {
-        println!("The development server is running.");
-    } else if path.contains("/release/") {
-        println!("The production server is running.")
-    } else {
-        panic!("the seeting is neither debug or release");
-    }
-
-    println!("Random number is: {}", random_number);
+    println!("time elapsed {:?}", now.elapsed());
+    println!("result {}", one + two + three);
 }
